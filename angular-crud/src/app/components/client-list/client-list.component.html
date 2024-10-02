@@ -1,0 +1,64 @@
+<header class="header">
+    <div class="container">
+        <h1 class="header-title">Cadastro de Clientes - Terra Magna</h1>
+    </div>
+</header>
+
+
+<main class="container">
+    <section class="clients-section">
+        <h2 class="section-title">Lista de Clientes</h2>
+        
+        <div class="cards">
+            <div class="client-card" *ngFor="let client of clients; let i = index">
+                <div class="client-info">
+                    <p><strong>Nome:</strong> {{ client.nome }}</p>
+                    <p><strong>E-mail:</strong> {{ client.email }}</p>
+                    <p><strong>Celular:</strong> {{ client.celular }}</p>
+                    <p><strong>Cidade:</strong> {{ client.cidade }}</p>
+                </div>
+                <div class="client-actions">
+                    <button class="button edit" (click)="editClient(i)">Editar</button>
+                    <button class="button delete" (click)="deleteClient(i)">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão flutuante para adicionar cliente -->
+    <button class="floating-button" (click)="openModal()">+</button>
+
+    <!-- Modal -->
+    <div class="modal" [ngClass]="{ 'active': modalActive }">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>{{ isEditing ? 'Editando Cliente' : 'Novo Cliente' }}</h2>
+                <button class="modal-close" (click)="closeModal()">&#10006;</button>
+            </header>
+            <form #clientForm="ngForm" (ngSubmit)="saveClient()">
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="client.nome" name="nome" placeholder="Nome do Cliente" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="client.email" name="email" placeholder="E-mail do Cliente" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="client.celular" name="celular" placeholder="Celular do Cliente" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="client.cidade" name="cidade" placeholder="Cidade do Cliente" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button save">Salvar</button>
+                    <button type="button" class="button cancel" (click)="closeModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>CRUD Terra Magna</p>
+    </div>
+</footer>
